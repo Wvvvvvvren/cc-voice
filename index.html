@@ -1,0 +1,41 @@
+B64=$(base64 -w 0 /mnt/user-data/uploads/ElevenLabs_2026-06-13T01_57_28_cc丢丢_eleven_v3_1_.mp3)
+cat > /mnt/user-data/outputs/index.html << EOF
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cc</title>
+<style>
+  body {
+    margin: 0;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: monospace;
+    color: #ff8c00;
+  }
+  .tap {
+    font-size: 1.2rem;
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<p class="tap">WE REQUIRE MORE TOKENS</p>
+<audio id="a" src="data:audio/mp3;base64,${B64}"></audio>
+<script>
+  window.addEventListener('load', function() {
+    var a = document.getElementById('a');
+    a.play().catch(function() {
+      document.body.addEventListener('click', function() { a.play(); }, {once: true});
+    });
+  });
+</script>
+</body>
+</html>
+EOF
+echo "done"
